@@ -8,7 +8,7 @@
  * @version       1.0.0
  *
  * @wordpress-plugin
- * Plugin Name:   FCF PAY Woocommerce Payment Gateway
+ * Plugin Name:   FCF PAY Payment Gateway
  * Plugin URI:    https://fcfpay.com/
  * Description:   FCF Pay provides merchants with an easy-to-use solution to accept cryptocurrency payments. Stay ahead of the competition with FCF Pay.
  * Version:       1.0.0
@@ -73,7 +73,7 @@ function fcf_pay_init()
     add_filter('woocommerce_payment_gateways', 'add_fcf_pay_gateway');
 
     /**
-     * Add the gateway to WooCommerce
+     * Add the gateway
      **/
     function add_fcf_pay_gateway($methods)
     {

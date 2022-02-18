@@ -3,7 +3,7 @@ Author URI: https://frenchconnection.finance/
 Plugin URI: https://fcfpay.com/
 Donate link: 
 Contributors: Valadanchik
-Tags: Crypto payemt, Payment, Gateway, FCFpay, Woocommerce, cryptocurrrency payemt
+Tags: Crypto payemt, Payment, Gateway, FCFpay, cryptocurrrency payemt
 Requires at least: 5.0.0
 Tested up to: 5.8.3
 Requires PHP: ^7.3

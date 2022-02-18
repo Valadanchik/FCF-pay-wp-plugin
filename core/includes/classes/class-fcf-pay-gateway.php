@@ -207,7 +207,7 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
     {
         $icon = '<img style="width:100px;height:auto;max-height:initial" src="' . FCFPAY_PLUGIN_URL . '/core/includes/assets/images/logo.png" alt="Cards" />';
 
-        return apply_filters('woocommerce_fcf_pay_icon', $icon, $this->id);
+        return apply_filters('fcf_pay_icon', $icon, $this->id);
     }
 
 

@@ -40,7 +40,7 @@ class Fcf_Pay_Endpoints{
 	 * @var		string
 	 * @since   1.0.0
 	 */
-    private $namespace = 'woocommerce-fcf-pay/v1';
+    private $namespace = 'fcf-pay/v1';
 
     /**
      * Amount percent
@@ -69,7 +69,7 @@ class Fcf_Pay_Endpoints{
      */
     public function __construct() {
         // Settings
-        $settings = get_option( 'woocommerce_fcf_pay_settings' );
+        $settings = get_option( 'fcf_pay_settings' );
         $this->amount_percent = ! empty( $settings['amount_percent'] ) ? (int) $settings['amount_percent'] : '';
         $this->max_amount = ! empty( $settings['max_amount'] ) ? (int) $settings['max_amount'] : '';
 

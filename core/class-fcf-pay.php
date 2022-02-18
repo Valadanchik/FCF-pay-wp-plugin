@@ -34,15 +34,6 @@ if ( ! class_exists( 'Fcf_Pay' ) ) :
 		public $helpers;
 
 		/**
-		 * FCFPAY settings object.
-		 *
-		 * @access	public
-		 * @since	1.0.0
-		 * @var		object|Fcf_Pay_Settings
-		 */
-		public $settings;
-
-		/**
 		 * Throw error on object clone.
 		 *
 		 * Cloning instances of the class is forbidden.
@@ -132,17 +123,8 @@ if ( ! class_exists( 'Fcf_Pay' ) ) :
 		 * @return  void
 		 */
 		public function load_textdomain() {
-            if ( ! class_exists( 'WooCommerce' ) ) {
-                add_action( 'admin_notices', 'woocommerce_fcf_pay_missing_wc_notice' );
-                return;
-            }
-
 			load_plugin_textdomain( 'fcf-pay', FALSE, dirname( plugin_basename( FCFPAY_PLUGIN_FILE ) ) . '/languages/' );
 		}
-
-        public function woocommerce_fcf_pay_missing_wc_notice() {
-            echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'FCF PAY requires WooCommerce to be installed and active. You can download %s here.', 'fcf_pay' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
-        }
 
 	}
 
