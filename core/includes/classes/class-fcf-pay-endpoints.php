@@ -133,7 +133,7 @@ class Fcf_Pay_Endpoints{
         $deposited = $request['data']["deposited"];
         $state = $request['data']["processing_state"];
         $currency = $request['data']["currency"];
-        $usd = $request['data']["usd_amount"];
+        $deposited_amount = $request['data']["deposited_amount"];
         $order = wc_get_order($order_id);
 
         if (!$order) {
@@ -150,14 +150,14 @@ class Fcf_Pay_Endpoints{
 
         if($deposited || $state === 2){
             $total = (float) $order->get_total();
-            $percent = 100 - ( ( $usd / $total ) * 100 );
+            $percent = 100 - ( ( $deposited_amount / $total ) * 100 );
 
-            if(is_null($usd)){
+            if(is_null($deposited_amount)){
                 $status = 'on-hold';
-            }elseif($this->amount_percent === '' && $this->max_amount === '' && $usd >= $total){
+            }elseif($this->amount_percent === '' && $this->max_amount === '' && $deposited_amount >= $total){
                 $status = 'completed';
             }else{
-                if( ($this->amount_percent >= $percent && $this->max_amount > 0 && ($total - $usd) <= $this->max_amount) || ($this->amount_percent >= $percent && $this->max_amount <= 0) || ($total - $usd) <= $this->max_amount){
+                if( ($this->amount_percent >= $percent && $this->max_amount > 0 && ($total - $deposited_amount) <= $this->max_amount) || ($this->amount_percent >= $percent && $this->max_amount <= 0) || ($total - $deposited_amount) <= $this->max_amount){
                     $status = 'completed';
                 }else{
                     $status = 'processing';
@@ -170,7 +170,7 @@ class Fcf_Pay_Endpoints{
         $order->update_status($status);
         wc_update_order_item_meta($order_id, 'fcf_pay_deposited_amount', $amount);
         wc_update_order_item_meta($order_id, 'fcf_pay_deposited_currency', $currency);
-        wc_update_order_item_meta($order_id, 'fcf_pay_deposited_amount_in_usd', $usd);
+        wc_update_order_item_meta($order_id, 'fcf_pay_deposited_amount_in_usd', $deposited_amount);
         $response = new WP_REST_Response(
             array(
                 'status' => true,
