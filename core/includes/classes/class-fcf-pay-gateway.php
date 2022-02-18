@@ -153,7 +153,7 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
         ];
 
         $query_params = http_build_query($data);
-        $environment_url = WC_FCF_PAY_API_URL . 'create-order?' . $query_params;
+        $environment_url = FCFPAY_API_URL . 'create-order?' . $query_params;
 
         $currency_name = $customer_order->get_currency();
         $currency_code = $this->currency_code($currency_name);
@@ -192,10 +192,10 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
         $response_body = wp_remote_retrieve_body($response);
         $response_data = json_decode($response_body, true);
 
-        if (isset($response_data["data"]["payment_page_url"])) {
+        if ($response_data['success']) {
             return array(
                 'result' => 'success',
-                'redirect' => $response_data["data"]["payment_page_url"],
+                'redirect' => $response_data["data"]["checkout_page_url"],
             );
         } else {
             throw new Exception(__($response_data["errorMessage"], 'fcf_pay'));
@@ -208,7 +208,7 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
      */
     function get_icon()
     {
-        $icon = '<img style="width:100px;height:auto;max-height:initial" src="' . plugin_dir_url(__FILE__) . '/assets/images/logo.png" alt="Cards" />';
+        $icon = '<img style="width:100px;height:auto;max-height:initial" src="' . FCFPAY_PLUGIN_URL . '/core/includes/assets/images/logo.png" alt="Cards" />';
 
         return apply_filters('woocommerce_fcf_pay_icon', $icon, $this->id);
     }
