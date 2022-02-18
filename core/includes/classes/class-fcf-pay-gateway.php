@@ -61,9 +61,6 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
         // FCF_PAY Success URL
         $this->redirect_url = $this->settings['redirect_url'];
 
-        // FCF_PAY Fail URL
-        $this->error_redirect_url = $this->settings['error_redirect_url'];
-
         // Amount percent for order confirmation
         $this->amount_percent = $this->settings['amount_percent'];
 
