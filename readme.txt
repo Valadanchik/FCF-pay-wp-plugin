@@ -1,6 +1,6 @@
 === FCF-Pay ===
-Author URI: https://frenchconnection.finance/
-Plugin URI: https://fcfpay.com/
+Author URI: https://fcfpay.com/
+Plugin URI: https://fcf-pay.com/
 Donate link: 
 Contributors: Valadanchik
 Tags: Crypto payemt, Payment, Gateway, FCFpay, cryptocurrrency payemt
