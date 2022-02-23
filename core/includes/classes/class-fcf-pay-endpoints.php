@@ -128,12 +128,12 @@ class Fcf_Pay_Endpoints{
      * @throws Exception
      */
     public function order_status($request){
-        $amount = $request['data']['crypto_amount'];
+        $amount = $request['data']["deposited_amount"] / pow(10, $request['data']["decimal"]);
         $order_id = $request['data']["order_id"];
         $deposited = $request['data']["deposited"];
         $state = $request['data']["processing_state"];
         $currency = $request['data']["currency"];
-        $deposited_amount = $request['data']["deposited_amount"];
+        $deposited_amount = $request['data']["deposited_amount"] / pow(10, $request['data']["decimal"]);
         $order = wc_get_order($order_id);
 
         if (!$order) {
