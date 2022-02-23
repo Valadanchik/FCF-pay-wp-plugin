@@ -27,7 +27,8 @@ class Fcf_Pay_Order_Paid {
         }
 
 		if ( 'fcf_pay_deposited_amount' === $column && $coin_amount != '' ) {
-            echo $this->decimal_notation($coin_amount) . ' ' . $currency . $amount;
+		    $deposited_amount = $this->decimal_notation($coin_amount) . ' ' . $currency . $amount;
+            echo esc_html__($deposited_amount, 'fcf-pay');
 		}
 
 	}

@@ -75,15 +75,16 @@ class Fcf_Pay_Run
      */
     public function fcf_pay_order_shortcode()
     {
-        $order_id = $_GET['order_id'];
-        $key = $_GET['key'];
+        $order_id = intval($_GET['order_id']);
+        $key = sanitize_text_field($_GET['key']);
         $order = new WC_Order($order_id);
         $deposited_amount = wc_get_order_item_meta($order_id, 'fcf_pay_deposited_amount');
         $currency = wc_get_order_item_meta($order_id, 'fcf_pay_deposited_currency');
         $usd = wc_get_order_item_meta($order_id, 'fcf_pay_deposited_amount_in_usd');
         if ($key === $order->get_order_key()):
-            ?>
-            <style>
+            $deposited_html = $deposited_amount === '' ? 0 : esc_html__($deposited_amount . ' ' . $currency);
+            $usd_html = ($usd) ? '<th scope="row">' . $usd . '</th>' : '';
+            return '<style>
                 table {
                     max-width: 960px;
                     margin: 10px auto;
@@ -119,29 +120,26 @@ class Fcf_Pay_Run
                 }
             </style>
             <table>
-                <caption><?= __('Order Information') ?></caption>
+                <caption>' . __('Order Information') . '</caption>
                 <thead>
                 <tr>
                     <?php if ($usd): ?>
-                        <th scope="col"><?= __('Amount in USD') ?></th>
+                        <th scope="col">'. __('Amount in USD') . '</th>
                     <?php endif; ?>
-                    <th scope="col"><?= __('Deposited amount') ?></th>
-                    <th scope="col"><?= __('Status') ?></th>
-                    <th scope="col"><?= __('Total') ?></th>
+                    <th scope="col">' . __('Deposited amount') . '</th>
+                    <th scope="col">' . __('Status') . '</th>
+                    <th scope="col">' . __('Total') . '</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <?php if ($usd): ?>
-                        <th scope="row"><?= $usd . '$' ?></th>
-                    <?php endif; ?>
-                    <th scope="row"><?= $deposited_amount === '' ? 0 : $deposited_amount . ' ' . $currency ?></th>
-                    <td><?= $order->get_status() ?></td>
-                    <td><?= $order->get_total() ?></td>
+                    ' . $usd_html . '
+                    <th scope="row">' . $deposited_html . '</th>
+                    <td>' . $order->get_status() . '</td>
+                    <td>' . $order->get_total() . '</td>
                 </tr>
                 </tbody>
-            </table>
-        <?php
+            </table>';
         endif;
     }
 
@@ -164,9 +162,11 @@ class Fcf_Pay_Run
 
         foreach( $labels as $label => $meta ){
             if($meta == 'fcf_pay_deposited_amount'){
-                echo '<tr><th>'.$label.':</th><td>'.FCFPAY()->helpers->decimal_notation(wc_get_order_item_meta( $order_id, $meta )).'</td></tr>';
+                $deposited_amount = FCFPAY()->helpers->decimal_notation(wc_get_order_item_meta( $order_id, $meta ));
+                echo '<tr><th>'.$label.':</th><td>'.esc_html__($deposited_amount, 'fcf-pay').'</td></tr>';
             }else{
-                echo '<tr><th>'.$label.':</th><td>'.wc_get_order_item_meta( $order_id, $meta ).'</td></tr>';
+                $crypto_type = wc_get_order_item_meta( $order_id, $meta );
+                echo '<tr><th>'.$label.':</th><td>'.esc_html__($crypto_type, 'fcf-pay').'</td></tr>';
             }
         }
 

@@ -21,8 +21,6 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
 
     private $redirect_url;
 
-    private $error_redirect_url;
-
     private $notify_url;
 
     public $amount_percent;
