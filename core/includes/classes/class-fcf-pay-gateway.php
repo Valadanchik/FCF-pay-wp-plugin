@@ -155,7 +155,6 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
 
         $payload = array(
             'domain' => parse_url(home_url())['host'], // url without http
-            'api_key' => $this->api_key,
             "order_id" => intval($customer_order->get_order_number()),
             "amount" => floatval($customer_order->order_total),
             "currency_name" => $currency_name,
@@ -172,6 +171,9 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
         $response = wp_remote_post($environment_url, array(
             'method' => 'POST',
             'body' => http_build_query($payload),
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $this->api_key
+            ),
             'timeout' => 90,
             'sslverify' => $ssl,
         ));
