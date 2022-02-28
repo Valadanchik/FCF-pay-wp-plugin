@@ -54,6 +54,9 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
         $this->init_settings();
 
         // FCF_PAY api_key
+        $this->environment_url = $this->settings['environment_url'];
+
+        // FCF_PAY api_key
         $this->api_key = $this->settings['api_key'];
 
         // FCF_PAY Success URL
@@ -107,6 +110,11 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
                 'type' => 'text',
                 'desc_tip' => __('API key from FCF_PAY.', 'fcf_pay'),
             ),
+            'environment_url' => array(
+                'title' => __('API url', 'fcf_pay'),
+                'type' => 'text',
+                'desc_tip' => __('You can get the URL from your FCF account dashboard.', 'fcf_pay')
+            ),
             'amount_percent' => array(
                 'title' => __('Percent', 'fcf_pay'),
                 'type' => 'number',
@@ -123,7 +131,7 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
                 'title' => __('Redirect URL', 'fcf_pay'),
                 'type' => 'text',
                 'desc_tip' => __('Redirect URL', 'fcf_pay'),
-            )
+            ),
         );
     }
 
@@ -144,11 +152,10 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
 
         $data = [
             'domain' => parse_url(home_url())['host'], // domain name
-            'api_key' => $this->api_key,
         ];
 
         $query_params = http_build_query($data);
-        $environment_url = FCFPAY_API_URL . 'create-order?' . $query_params;
+        $environment_url = $this->environment_url . '?' . $query_params;
 
         $currency_name = $customer_order->get_currency();
         $currency_code = $this->currency_code($currency_name);
