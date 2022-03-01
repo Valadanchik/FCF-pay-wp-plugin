@@ -23,6 +23,8 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
 
     private $notify_url;
 
+    public $environment_url;
+
     public $amount_percent;
 
     public $max_amount;

@@ -111,7 +111,7 @@ class Fcf_Pay_Endpoints{
 
         $response = new WP_REST_Response(
             array(
-                'status' => true,
+                'success' => true,
             )
         );
         $response->set_status(200);
@@ -139,7 +139,7 @@ class Fcf_Pay_Endpoints{
         if (!$order) {
             $response = new WP_REST_Response(
                 array(
-                    'status' => false,
+                    'success' => false,
                     'message' => 'Order not found',
                 )
             );
@@ -173,7 +173,7 @@ class Fcf_Pay_Endpoints{
         wc_update_order_item_meta($order_id, 'fcf_pay_deposited_amount_in_usd', $deposited_amount);
         $response = new WP_REST_Response(
             array(
-                'status' => true,
+                'success' => true,
             )
         );
         $response->set_status(200);
