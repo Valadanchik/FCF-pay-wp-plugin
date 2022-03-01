@@ -53,7 +53,7 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
 
         $this->init_settings();
 
-        // FCF_PAY api_key
+        // FCF_PAY api_url
         $this->environment_url = $this->settings['environment_url'];
 
         // FCF_PAY api_key
