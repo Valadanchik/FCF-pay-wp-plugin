@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:   FCF PAY Payment Gateway
  * Plugin URI:    https://fcfpay.com/
- * Description:   FCF Pay provides merchants with an easy-to-use solution to accept cryptocurrency payments. Stay ahead of the competition with FCF Pay.
+ * Description:   Making cryptocurrency payments easy!
  * Version:       1.0.0
  * Author:        The FCF Inc
  * Author URI:    https://frenchconnection.finance/

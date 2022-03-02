@@ -108,31 +108,32 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
                 'css' => 'max-width:350px;'
             ),
             'api_key' => array(
-                'title' => __('API key', 'fcf_pay'),
+                'title' => __('API key *', 'fcf_pay'),
                 'type' => 'text',
                 'desc_tip' => __('API key from FCF_PAY.', 'fcf_pay'),
             ),
             'environment_url' => array(
                 'title' => __('API url', 'fcf_pay'),
                 'type' => 'text',
-                'desc_tip' => __('You can get the URL from your FCF account dashboard.', 'fcf_pay')
+                'desc_tip' => __('You can get the URL from your FCF account dashboard.', 'fcf_pay'),
+                'default' => 'https://merchant.fcfpay.com/api/v1'
             ),
             'amount_percent' => array(
                 'title' => __('Percent', 'fcf_pay'),
                 'type' => 'number',
-                'desc_tip' => __('Percent description.', 'fcf_pay'),
+                'desc_tip' => __('Maximum percentage difference between the price and received funds to consider the transaction successful', 'fcf_pay'),
                 'default' => 0
             ),
             'max_amount' => array(
                 'title' => __('Max amount', 'fcf_pay'),
                 'type' => 'number',
-                'desc_tip' => __('Max amount description.', 'fcf_pay'),
+                'desc_tip' => __('Maximum difference in the currency selected between the price and received funds to consider the transaction successful', 'fcf_pay'),
                 'default' => 0
             ),
             'redirect_url' => array(
                 'title' => __('Redirect URL', 'fcf_pay'),
                 'type' => 'text',
-                'desc_tip' => __('Redirect URL', 'fcf_pay'),
+                'desc_tip' => __('URL to redirect the shopper after a successful transaction', 'fcf_pay'),
             ),
         );
     }
@@ -157,7 +158,7 @@ class Fcf_Pay_Gateway extends WC_Payment_Gateway
         ];
 
         $query_params = http_build_query($data);
-        $environment_url = $this->environment_url . '?' . $query_params;
+        $environment_url = ($this->environment_url != '') ?$this->environment_url . '/create-order?' . $query_params : 'https://merchant.fcfpay.com/api/v1/create-order?' . $query_params;
 
         $currency_name = $customer_order->get_currency();
         $currency_code = $this->currency_code($currency_name);
