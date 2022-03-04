@@ -163,10 +163,10 @@ class Fcf_Pay_Run
         foreach( $labels as $label => $meta ){
             if($meta == 'fcf_pay_deposited_amount'){
                 $deposited_amount = FCFPAY()->helpers->decimal_notation(wc_get_order_item_meta( $order_id, $meta ));
-                echo '<tr><th>'.$label.':</th><td>'.esc_html__($deposited_amount, 'fcf-pay').'</td></tr>';
+                echo '<tr><th>'.esc_html($label).':</th><td>'.esc_html($deposited_amount).'</td></tr>';
             }else{
                 $crypto_type = wc_get_order_item_meta( $order_id, $meta );
-                echo '<tr><th>'.$label.':</th><td>'.esc_html__($crypto_type, 'fcf-pay').'</td></tr>';
+                echo '<tr><th>'.esc_html($label).':</th><td>'.esc_html($crypto_type).'</td></tr>';
             }
         }
 
